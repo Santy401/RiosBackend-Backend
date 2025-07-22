@@ -1,7 +1,6 @@
 import { Op } from 'sequelize';
 
 import area from '../models/areaModel.js';
-import Client from '../models/client.js';
 import Company from '../models/company.js';
 
 const getAllCompanies = async () => {
@@ -12,7 +11,6 @@ const getAllCompanies = async () => {
       },
       include: [
         { model: area, as: 'areas' },
-        { model: Client, as: 'clients' },
       ],
     });
     console.log(companies);
@@ -75,7 +73,6 @@ const deleteCompany = async (id) => {
   const company = await Company.findByPk(id, {
     include: [
       { model: area, as: 'areas', required: false },
-      { model: Client, as: 'clients', required: false },
     ],
   });
 
@@ -85,10 +82,6 @@ const deleteCompany = async (id) => {
 
   if (company.areas.length > 0) {
     throw new Error('No se puede eliminar la empresa porque tiene áreas asociadas');
-  }
-
-  if (company.clients.length > 0) {
-    throw new Error('No se puede eliminar la empresa porque tiene clientes asociados');
   }
 
   return await company.destroy();

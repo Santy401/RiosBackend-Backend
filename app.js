@@ -9,7 +9,6 @@ import sequelize from './config/database.js';
 import authController from './controllers/authController.js';
 import errorHandler from './middleware/errorMiddleware.js';
 import areaRoutes from './routes/areaRoutes.js';
-import clientRoutes from './routes/clientRoutes.js';
 import companyRoutes from './routes/companyRoutes.js';
 import taskRoutes from './routes/taskRoutes.js';
 import userRoutes from './routes/userRoutes.js';
@@ -67,7 +66,6 @@ app.use('/tasks', taskRoutes);
 app.use('/areas', areaRoutes);
 app.use('/login', authController.login);
 app.use('/auth/register', authController.register);
-app.use('/clients', clientRoutes);
 app.use('/companies', companyRoutes);
 
 // Middleware de errores
