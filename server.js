@@ -31,7 +31,7 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log("Database connected!");
 
-    await sequelize.sync({ alter: false });
+    await sequelize.sync({ force: true });
     console.log("Database synchronized!");
 
     await initializeAdminUser();

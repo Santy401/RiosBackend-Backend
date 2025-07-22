@@ -44,7 +44,7 @@ const sequelize = new Sequelize(selectedConfig);
         : "🟢 Conectado a AWS RDS (default)"
     );
 
-    await sequelize.sync({ alter: true, force: false });
+    await sequelize.sync({ force: true });
     console.log("✅ Tablas sincronizadas");
   } catch (error) {
     console.error("🔴 Error de conexión:", error.message);
