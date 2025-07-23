@@ -47,14 +47,14 @@ const Task = sequelize.define(
     },
     
     due_date: {
-      type: DataTypes.DATEONLY,  // Cambia de DATE a DATEONLY
+      type: DataTypes.DATEONLY, 
       allowNull: false,
       get() {
         return this.getDataValue('due_date');
       },
       set(value) {
         if (!value) throw new Error('La fecha es obligatoria');
-        this.setDataValue('due_date', value.split('T')[0]); // Solo guarda la parte de la fecha
+        this.setDataValue('due_date', value.split('T')[0]);
       }
     },
 

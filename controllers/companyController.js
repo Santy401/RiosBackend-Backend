@@ -22,15 +22,12 @@ const createCompany = async (req, res) => {
       return res.status(400).json({ error: "❌ Nombre y NIT son requeridos" });
     }
 
-    // Crear la empresa
     const company = await CompanyService.createCompany(req.body);
 
-    // Verifica si la empresa fue creada correctamente
     if (!company || !company.id) {
       throw new Error("⚠️ La empresa no fue creada correctamente en la base de datos.");
     }
 
-    // Obtener la lista actualizada de empresas
     const updatedCompanies = await CompanyService.getAllCompanies();
 
     console.log("✅ Empresa creada:", company);

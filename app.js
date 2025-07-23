@@ -17,7 +17,6 @@ dotenv.config();
 
 const app = express();
 
-// Verificar conexión a PostgreSQL 🔍
 sequelize.authenticate()
   .then(() => {
     console.log('🟢 Conexión con PostgreSQL exitosa!');
@@ -26,7 +25,6 @@ sequelize.authenticate()
     console.error('🔴 Error al conectar con PostgreSQL:', err);
   });
 
-// Seguridad
 app.use(helmet());
 app.use(express.json());
 
@@ -49,7 +47,6 @@ app.use(
   })
 );
 
-// Config extra
 app.use(express.json({ limit: '10kb' }));
 app.use(xss());
 
@@ -60,7 +57,6 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-// Rutas
 app.use('/users', userRoutes);
 app.use('/tasks', taskRoutes);
 app.use('/areas', areaRoutes);
@@ -68,7 +64,6 @@ app.use('/login', authController.login);
 app.use('/auth/register', authController.register);
 app.use('/companies', companyRoutes);
 
-// Middleware de errores
 app.use(errorHandler);
 
 export default app;

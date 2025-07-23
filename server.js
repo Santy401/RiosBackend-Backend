@@ -10,18 +10,15 @@ import { initializeAdminUser } from "./services/authService.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Middleware CORS — DEBE ESTAR PRIMERO
 
 app.use(cors({
   origin: true,
   credentials: true
 }));
 
-// Middlewares de JSON y forms — también antes de rutas
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Servir archivos estáticos si hace falta
 app.use(express.static(path.join(__dirname, "../public")));
 
 const PORT = process.env.PORT || 6005;

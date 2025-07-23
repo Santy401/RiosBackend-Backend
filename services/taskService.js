@@ -24,7 +24,6 @@ const getAllTasks = async (user) => {
 
 const createTask = async (taskData) => {
   try {
-    // La fecha ya viene en el formato correcto (YYYY-MM-DD)
     const newTask = await Task.create(taskData);
     return newTask;
   } catch (error) {
@@ -61,9 +60,6 @@ const deleteTask = async (id) => {
     return { success: false, message: "Tarea no encontrada" };
   }
   
-  // Opcional: Verificar si la tarea tiene dependencias
-  // (Esto depende de cómo está estructurada tu base de datos y la lógica de negocio)
-
   console.log(`🗑 Eliminando tarea con ID ${id}`);
   await task.destroy();
   return { success: true, taskId: id }; 
