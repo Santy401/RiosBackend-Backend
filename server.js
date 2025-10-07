@@ -28,7 +28,22 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log("Database connected!");
 
-    await sequelize.sync({ force: true });
+    const { User, Company, Area, Task } = await import('./models/index.js');
+    console.log("Models and associations loaded!");
+
+    console.log("Sincronizando tablas...");
+    await Company.sync({ force: true });
+    console.log("Companies table synchronized!");
+
+    await User.sync({ force: true });
+    console.log("Users table synchronized!");
+
+    await Area.sync({ force: true });
+    console.log("Areas table synchronized!");
+
+    await Task.sync({ force: true });
+    console.log("Tasks table synchronized!");
+
     console.log("Database synchronized!");
 
     await initializeAdminUser();
@@ -47,4 +62,3 @@ const startServer = async () => {
 };
 
 startServer();
-

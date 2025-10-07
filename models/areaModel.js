@@ -4,15 +4,13 @@ import sequelize from '../config/database.js';
 
 import Company from './company.js';
 
-
-const area = sequelize.define(
-  'areas',
+const Area = sequelize.define(
+  'Area',
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
-      field: 'id_area', 
     },
     nombre_area: {
       type: DataTypes.STRING,
@@ -27,6 +25,7 @@ const area = sequelize.define(
     },
     id_empresa: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: Company,
         key: 'id',
@@ -46,7 +45,4 @@ const area = sequelize.define(
   }
 );
 
-area.belongsTo(Company, { foreignKey: 'id_empresa', as: 'companyInfo' });
-Company.hasMany(area, { foreignKey: 'id_empresa', as: 'areas' });
-
-export default area;
+export default Area;

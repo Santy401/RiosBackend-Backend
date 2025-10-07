@@ -38,9 +38,7 @@ const sequelize = new Sequelize(selectedConfig);
         ? "🟢 Conectado a PostgreSQL LOCAL (manual override)"
         : "🟢 Conectado a AWS RDS (default)"
     );
-
-    await sequelize.sync({ force: true });
-    console.log("✅ Tablas sincronizadas");
+    
   } catch (error) {
     console.error("🔴 Error de conexión:", error.message);
     process.exit(1);

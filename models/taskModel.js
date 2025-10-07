@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 
 import sequelize from '../config/database.js';
 
-import Areas from './areaModel.js';
+import Area from './areaModel.js';
 import Company from './company.js';
 import User from './userModel.js';
 
@@ -41,11 +41,10 @@ const Task = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: Areas,
-        key: 'id_area',
+        model: Area,
+        key: 'id',
       },
     },
-    
     due_date: {
       type: DataTypes.DATEONLY, 
       allowNull: false,
@@ -80,9 +79,5 @@ const Task = sequelize.define(
     underscored: true, 
   }
 );
-
-Task.belongsTo(User, { as: 'assignedUser', foreignKey: 'assigned_to' });
-Task.belongsTo(Company, { as: 'company', foreignKey: 'company_id' });
-Task.belongsTo(Areas, { as: 'Areas', foreignKey: 'area_id' });
 
 export default Task;
