@@ -11,7 +11,7 @@ const getAllTasks = async (user) => {
       include: [
         { model: User, as: 'assignedUser', attributes: ['id', 'name', 'email'] },
         { model: Company, as: 'company', attributes: ['id', 'name', 'nit'] },
-        { model: Areas, as: 'Areas', attributes: ['id_area', 'nombre_area', 'departamento', 'descripcion'] },
+        { model: Areas, as: 'area', attributes: ['id_area', 'nombre_area', 'departamento', 'descripcion'] },
       ],
       order: [['due_date', 'ASC']],
     });

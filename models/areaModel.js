@@ -11,6 +11,7 @@ const Area = sequelize.define(
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
+      field: 'id_area'
     },
     nombre_area: {
       type: DataTypes.STRING,

@@ -42,7 +42,7 @@ const Task = sequelize.define(
       allowNull: false,
       references: {
         model: Area,
-        key: 'id',
+        key: 'id_area',
       },
     },
     due_date: {
