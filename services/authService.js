@@ -1,9 +1,6 @@
 import jwt from 'jsonwebtoken';
-
 import bcrypt from 'bcryptjs';
-
 import dotenv from 'dotenv';
-
 import User from '../models/userModel.js';
 
 dotenv.config();
@@ -26,7 +23,7 @@ const register = async (userData) => {
   
   const hashedPassword = await bcrypt.hash(password, 10);
   console.log('Contraseña original:', password);
-console.log('Contraseña encriptada:', hashedPassword)
+  console.log('Contraseña encriptada:', hashedPassword);
 
   const newUser = await User.create({
     name,
@@ -39,7 +36,6 @@ console.log('Contraseña encriptada:', hashedPassword)
 
   return newUser;
 };
-
 
 const login = async (loginData) => {
   const { email, password } = loginData;
@@ -58,14 +54,11 @@ const login = async (loginData) => {
   }
 
   console.log('Usuario encontrado:', user);
-
   console.log('Contraseña ingresada:', password);
   console.log('Contraseña almacenada en BD:', user.password);
 
-
   const isPasswordValid = await bcrypt.compare(password.trim(), user.password);
-  console.log('Contraseña ingresada:', password);
-console.log('Contraseña almacenada en BD:', user.password);
+  console.log('¿Contraseña válida?:', isPasswordValid);
 
   if (!isPasswordValid) {
     throw new Error('Credenciales inválidas');
@@ -80,7 +73,7 @@ console.log('Contraseña almacenada en BD:', user.password);
       email: user.email,
       role: user.role,
     },
-    process.env.JWT_SECRET,
+    process.env.JWT_SECRET || 'fallback_secret_key_para_desarrollo_2025',
     { expiresIn: '24h' }
   );
 
@@ -96,27 +89,43 @@ console.log('Contraseña almacenada en BD:', user.password);
   };
 };
 
-
 export const initializeAdminUser = async () => {
-  await User.destroy({ where: { email: 'erios@riosbackend.com' } });
+  try {
+    const existingAdmin = await User.findOne({ 
+      where: { email: 'erios@riosbackend.com' } 
+    });
+    
+    if (existingAdmin) {
+      console.log('Admin user ya existe, eliminando...');
+      await User.destroy({ where: { email: 'erios@riosbackend.com' } });
+    }
 
-  console.log('Usuario admin eliminado, creando nuevo...');
+    console.log('Creando nuevo usuario admin...');
+    
+    const hashedPassword = await bcrypt.hash('H2025c*', 10);
+    console.log('Contraseña admin encriptada:', hashedPassword);
 
-  await User.create({
-    name: 'Eduardo Rios',
-    email: 'erios@riosbackend.com',
-    password: 'H2025c*',
-    role: 'admin',
-    protected: true,
-  });
+    const adminUser = await User.create({
+      name: 'Eduardo Rios',
+      email: 'erios@riosbackend.com',
+      password: hashedPassword,
+      role: 'admin',
+      protected: true,
+    });
 
-  console.log('Admin user created!');
+    console.log('✅ Admin user creado correctamente!');
+    console.log('Email: erios@riosbackend.com');
+    console.log('Contraseña: H2025c*');
+    console.log('Contraseña encriptada:', hashedPassword);
+    
+    return adminUser;
+  } catch (error) {
+    console.error('❌ Error creando admin user:', error);
+    throw error;
+  }
 };
-
-
 
 export default {
   register,
   login,
 };
-
