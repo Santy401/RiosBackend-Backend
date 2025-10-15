@@ -3,10 +3,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const AWS_CONFIG = {
-  host: process.env.DB_HOST || "rios-db.c6jy2yqs8p98.us-east-1.rds.amazonaws.com",
-  username: process.env.DB_USER || "postgre",
+  host: process.env.DB_HOST || "db.qmnhdzasqtuqbndakxya.supabase.co",
+  username: process.env.DB_USER || "postgres",
   database: process.env.DB_NAME || "postgres",
-  password: process.env.DB_PASSWORD || "TaskRios401",
+  password: process.env.DB_PASSWORD || "Santy401@",
   port: process.env.DB_PORT || 5432,
   dialect: "postgres",
   logging: console.log,
