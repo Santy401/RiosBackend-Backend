@@ -32,16 +32,16 @@ const startServer = async () => {
     console.log("Models and associations loaded!");
 
     console.log("Sincronizando tablas...");
-    await Company.sync({ force: true });
-    console.log("Companies table synchronized!");
+    await Company.sync({ alter: true });
+    console.log("Companies table synchronized!!!");
 
-    await User.sync({ force: true });
+    await User.sync({ alter: true });
     console.log("Users table synchronized!");
 
-    await Area.sync({ force: true });
+    await Area.sync({ alter: true });
     console.log("Areas table synchronized!");
 
-    await Task.sync({ force: true });
+    await Task.sync({ alter: true });
     console.log("Tasks table synchronized!");
 
     console.log("Database synchronized!");
