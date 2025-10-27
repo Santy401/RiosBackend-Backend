@@ -1,5 +1,4 @@
 import { DataTypes } from 'sequelize';
-
 import sequelize from '../config/database.js';
 
 const Company = sequelize.define(
@@ -45,6 +44,50 @@ const Company = sequelize.define(
       validate: {
         isIn: [['active', 'inactive']]
       }
+    },
+    tipo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    cedula: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    firma: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    softwareContable: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    usuario: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    contraseña: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    servidorCorreo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    claveCorreo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    claveCC: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    claveSS: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    claveICA: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
