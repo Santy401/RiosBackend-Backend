@@ -98,19 +98,35 @@ console.log('Contraseña almacenada en BD:', user.password);
 
 
 export const initializeAdminUser = async () => {
-  await User.destroy({ where: { email: 'erios@riosbackend.com' } });
+  try {
+    const existingAdmin = await User.findOne({ 
+      where: { email: 'erios@riosbackend.com' } 
+    });
 
-  console.log('Usuario admin eliminado, creando nuevo...');
+    if (existingAdmin) {
+      console.log('✅ Admin user already exists:', existingAdmin.email);
+      return existingAdmin;
+    }
 
-  await User.create({
-    name: 'Eduardo Rios',
-    email: 'erios@riosbackend.com',
-    password: 'H2025c*',
-    role: 'admin',
-    protected: true,
-  });
+    console.log('🔄 Admin user not found, creating new one...');
 
-  console.log('Admin user created!');
+    const hashedPassword = await bcrypt.hash('H2025c*', 10);
+    
+    const newAdmin = await User.create({
+      name: 'Eduardo Rios',
+      email: 'erios@riosbackend.com',
+      password: hashedPassword,
+      role: 'admin',
+      protected: true,
+    });
+
+    console.log('✅ New admin user created!');
+    return newAdmin;
+    
+  } catch (error) {
+    console.error('❌ Error initializing admin user:', error);
+    throw error;
+  }
 };
 
 
